@@ -15,7 +15,7 @@ export const Navigation = () => {
         </div>
         <div className="flex gap-8 items-center justify-center ">
           <TbGridDots size={24} className=" cursor-pointer" />
-          <div className="bg-[#1285D2] text-white py-2 px-3 rounded-full cursor-pointer ">
+          <div className="bg-[#1285D2] text-white py-3 px-3 rounded-full cursor-pointer ">
             A
           </div>
         </div>
