@@ -15,8 +15,13 @@ export const Navigation = () => {
         </div>
         <div className="flex gap-8 items-center justify-center ">
           <TbGridDots size={24} className=" cursor-pointer" />
-          <div className="bg-[#1285D2] text-white py-3 px-3 rounded-full cursor-pointer ">
-            A
+          <div className="bg-[#1285D2] text-white p-[14px] relative  rounded-full cursor-pointer ">
+            <p
+              className="absolute translate-y-2/4 translate-x-2/4 "
+              style={{ right: "50%", bottom: "50%" }}
+            >
+              A
+            </p>
           </div>
         </div>
       </div>

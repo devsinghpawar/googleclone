@@ -3,7 +3,10 @@ import { IoMdMic } from "react-icons/io";
 export default function VoiceSearch() {
   return (
     <div className="grid  h-screen place-items-center">
-      <div className="flex justify-between items-center  w-[660px] h-[300px]">
+      <div
+        className="flex justify-between items-center 
+       w-[660px] h-[300px]"
+      >
         <div className=" w-[360px] flex items-center text-[32px]">
           Listening...
         </div>

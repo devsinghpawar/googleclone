@@ -1,44 +1,125 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { AiOutlineSearch } from "react-icons/ai";
+import { FaRegClock } from "react-icons/fa6";
 import Link from "next/link";
+import { func } from "../components/getSearch";
+import GoogleLensSearch from "./SearchImage";
+import { SearchButton, FeelingLucky } from "./SearchButton";
 
 export const HomeSearch = () => {
   const [input, setInput] = useState("");
   const router = useRouter();
   const [randomSearchLoading, setRandomSearchLoading] = useState(false);
+  const [lens, setLens] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [debouncedValue, setDebouncedValue] = useState("");
+  const [popUp, setPopUp] = useState(false);
+  const cropperRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
     router.push(`/search/web?searchTerm=${input}`);
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(input);
+    }, 200);
+    if (!input) return setSuggestions([]);
+    return () => clearTimeout(timer);
+  }, [input]);
+
+  useEffect(() => {
+    const indoer = async () => {
+      const as = await func();
+      setSuggestions(as.suggestions.map((el) => el.value));
+    };
+    if (!input) return setSuggestions([]);
+
+    if (debouncedValue) {
+      indoer();
+    }
+  }, [debouncedValue]);
 
   const randomSearch = async (e) => {
-    setRandomSearchLoading(true);
-    const response = await fetch("https://random-word-api.herokuapp.com/word")
-      .then((res) => res.json())
-      .then((data) => data(0));
-    if (!response) return;
-    router.push(`/search/web?searchTerm=${response}`);
-    setRandomSearchLoading(false);
+    try {
+      setRandomSearchLoading(true);
+      const response = await fetch("https://random-word-api.herokuapp.com/word")
+        .then((res) => res.json())
+        .then((data) => data[0]);
+      if (!response) return setRandomSearchLoading(false);
+      router.push(`/search/web?searchTerm=${response}`);
+      setRandomSearchLoading(false);
+    } catch (error) {
+      setRandomSearchLoading(false);
+      console.log(error);
+    }
   };
+
+  const handleClick = () => {
+    setLens(!lens);
+  };
+
+  const handleChange = async (value) => {
+    setInput(value);
+
+    console.log(as.suggestions);
+  };
+
+  if (lens) return <GoogleLensSearch onButtonClick={handleClick} />;
 
   return (
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex w-[582px] h-[46px] mt-5 mx-auto max-w-[90%] border border-[#636468] px-5 py-3 rounded-full hover:shadow-md focus-within:shadow-md transition-shadow sm:max-w-xl lg:max-w-2xl"
+        className="flex w-[582px] h-[46px] mt-1 mx-auto max-w-[90%] border border-[#636468] px-5 py-3 rounded-full hover:shadow-md focus-within:shadow-md transition-shadow sm:max-w-xl lg:max-w-2xl relative bg-[#2F3133]"
       >
         <AiOutlineSearch className="text-xl text-gray-500 mr-3" />
         <input
+          ref={cropperRef}
           type="text"
-          className="flex-grow focus:outline-none bg-transparent "
+          className="flex-grow focus:outline-none bg-[#2F3133]"
           title="search"
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
         />
+        {setInput && suggestions.length && (
+          <div className=" h-[416.4px] w-[584px] absolute bg-[#2F3133] pb-2 text-black left-0 top-11 rounded-b-3xl  ">
+            <ul className=" w-full   ">
+              {suggestions.map((el) => (
+                <div
+                  key={el}
+                  className="flex  pl-[14px] pr-[20px] items-center  group hover:bg-[#7e7d7d]"
+                >
+                  <FaRegClock className="text-white mr-[13px] " size={15} />
+                  <li className="w-[470.4px] h-[30.4px] m-1  text-white flex  items-center  ">
+                    {el}
+                  </li>
+
+                  <button className="text-white hidden group-hover:block  cursor-pointer hover:underline  ">
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </ul>
+
+            <div className="flex flex-col space-y-2 sm:space-y-0 justify-center sm:flex-row mt-8 sm:space-x-4 mb-4 ">
+              <SearchButton
+                handleSubmit={handleSubmit}
+                suggestions={suggestions}
+              />
+
+              <FeelingLucky
+                randomSearchLoading={randomSearchLoading}
+                randomSearch={randomSearch}
+                suggestions={suggestions}
+              />
+            </div>
+          </div>
+        )}
+
         <div className="flex gap-4">
           <Link href="/voicesearch">
             <svg
@@ -63,7 +144,9 @@ export const HomeSearch = () => {
               ></path>
             </svg>
           </Link>
+
           <svg
+            onClick={handleClick}
             className="text-blue-500 w-6 h-6 hover:cursor-pointer"
             focusable="false"
             viewBox="0 0 192 192"
@@ -91,19 +174,29 @@ export const HomeSearch = () => {
         </div>
       </form>
       <div className="flex flex-col space-y-2 sm:space-y-0 justify-center sm:flex-row mt-8 sm:space-x-4 mb-4 ">
-        <button
-          className="bg-[#2F3133] rounded-md text-sm text-white hover:ring-gray-200 focus:outline-none active:ring-gray-300 hover:shadow-md w-36 h-10 transition-shadow"
-          onClick={handleSubmit}
-        >
-          Google Search
-        </button>
-        <button
-          disabled={randomSearchLoading}
-          className="bg-[#2F3133] bg-rounded-md text-sm text-white hover:ring-gray-200 focus:outline-none active:ring-gray-300 hover:shadow-md w-36 h-10 transition-shadow disabled:opacity-80 disabled:shadow-sm"
-          onClick={randomSearch}
-        >
-          {randomSearchLoading ? "Loading...." : `I'm Feeling Lucky`}
-        </button>
+        <SearchButton handleSubmit={handleSubmit} />
+
+        <FeelingLucky
+          randomSearchLoading={randomSearchLoading}
+          randomSearch={randomSearch}
+        />
+      </div>
+
+      <div className="flex flex-col space-y-2 justify-center  mt-8 mb-4  sm:flex-row ">
+        Google offered in:
+        <div className="text-[#4589e2] flex gap-4">
+          <a href="#lang" className="ml-1">
+            हिन्दी
+          </a>
+          <a href="#lang">বাংলা</a>
+          <a href="#lang">తెలుగు</a>
+          <a href="#lang">मराठी</a>
+          <a href="#lang">தமிழ்</a>
+          <a href="#lang">ગુજરાતી</a>
+          <a href="#lang">ಕನ್ನಡ</a>
+          <a href="#lang">മലയാളം</a>
+          <a href="#lang">ਪੰਜਾਬੀ</a>
+        </div>
       </div>
     </>
   );

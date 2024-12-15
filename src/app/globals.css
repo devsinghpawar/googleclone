@@ -14,6 +14,66 @@
   }
 }
 
+.cropper-line {
+  display: none !important; /* Removes the grid lines */
+}
+
+/* Hide dashed borders around the crop box */
+.cropper-dashed {
+  display: none !important; /* Removes dashed lines */
+}
+
+/* Optional: Remove handles (circular draggable points) */
+.cropper-point {
+  display: none !important; /* Hides drag points */
+}
+/* Rounded corners and white border for crop box */
+
+.cropper-face.cropper-move {
+  background: none;
+}
+.cropper-view-box,
+.cropper-face {
+  /* background: none !important; */
+  border-radius: 0px; /* Rounded corners */
+  border: 3px solid white; /* White border */
+  --b: 5px; /* thickness of the border */
+  --c: white; /* color of the border */
+  --w: 20px; /* width of border */
+  --_g: #0000 90deg, var(--c) 0;
+  --_p: var(--w) var(--w) border-box no-repeat;
+
+  outline: none !important;
+
+  border: var(--b) solid #00000000; /* space for the border */
+
+  background: conic-gradient(
+        from 90deg at top var(--b) left var(--b),
+        var(--_g)
+      )
+      0 0 / var(--_p),
+    conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 100% 0 /
+      var(--_p),
+    conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100% /
+      var(--_p),
+    conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g))
+      100% 100% / var(--_p);
+}
+
+/* Remove cropping grid lines */
+.cropper-line {
+  display: none;
+}
+
+/* Customize cropping handles (optional) */
+.cropper-point {
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%; /* Circular handles */
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
