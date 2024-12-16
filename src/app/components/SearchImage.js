@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import CustomCropper from "./test.js";
+// import CustomCropper from "./test.js";
 export default function GoogleLensSearch({ onButtonClick }) {
   const [isLoading, setIsLoadinzg] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
@@ -42,13 +42,14 @@ export default function GoogleLensSearch({ onButtonClick }) {
           aria-label="Close"
           tabIndex="0"
           onClick={onButtonClick}
-          className="absolute top-4 right-4 cursor-pointer rounded-full p-2 hover:bg-gray-200 text-white "
+          className="absolute top-4 right-4 cursor-pointer rounded-full p-2  text-white  "
         >
           <svg
             focusable="false"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            className="w-5 h-5 text-white"
+            class="w-5 h-5 text-white"
+            fill="currentColor"
           >
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
           </svg>
@@ -59,7 +60,7 @@ export default function GoogleLensSearch({ onButtonClick }) {
       <h1 className=" mt-1">Search any image with Google Lens</h1>
 
       {/* Drag and Upload Section */}
-      <div className="flex flex-col items-center mt-5 w-[548.8px] h-[278.4px]   bg-[#1F2125] rounded-xl  border-gray-600 border-dashed border-2">
+      <div className="flex flex-col items-center mt-5 w-[548.8px] h-[278.4px]   bg-[#1F2125] rounded-xl  border-[#2F3133] border-dashed border-2">
         <div className="text-center pt-4 rounded-lg w-full max-w-md flex justify-center items-center gap-4 h-[186px] ">
           <div>
             <svg
@@ -111,10 +112,10 @@ export default function GoogleLensSearch({ onButtonClick }) {
           </div>
 
           <div>
-            <p className="">
+            <p className="text-[#939698]">
               Drag an image here or{" "}
-              <span className="text-blue-500 cursor-pointer underline  border-2  border-transparent hover:border-2">
-                <label className=" border border-blue-500 rounded  w-full text-center text-[16px] cursor-pointer tbg-gray-100 hover:border-blue-500  ">
+              <span className="text-[#8AB4F8] cursor-pointer underline  border-2  border-transparent hover:border-2">
+                <label className="  w-full text-center text-[16px] cursor-pointer tbg-gray-100   ">
                   upload a file
                   <input
                     type="file"
@@ -130,9 +131,9 @@ export default function GoogleLensSearch({ onButtonClick }) {
 
         {/* OR Divider */}
         <div className="flex items-center ">
-          <div className="flex-1 border-t border-gray-300"></div>
+          <div className="flex-1 border-t w-[223px] border-[#3C4043]"></div>
           <span className="mx-4 text-gray-500 text-[14px]">OR</span>
-          {/* <div className="flex-1 border-t border-gray-300"></div> */}
+          <div className="flex-1 border-t border-[#3C4043]  w-[223px]"></div>
         </div>
 
         {/* Input Field */}

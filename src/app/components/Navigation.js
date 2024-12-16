@@ -3,7 +3,7 @@ import { TbGridDots } from "react-icons/tb";
 
 export const Navigation = () => {
   return (
-    <nav className="bg-[#1F2125] text-white p-4 px-6 flex justify-between text-sm items-center ">
+    <nav className="bg-[#202124] text-white p-4 px-6 flex justify-between text-sm items-center ">
       <div className="flex gap-5 items-center justify-center ">
         <Link href="/about">About</Link>
         <Link href="/store">Store</Link>

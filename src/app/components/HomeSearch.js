@@ -81,17 +81,20 @@ export const HomeSearch = () => {
         <input
           ref={cropperRef}
           type="text"
-          className="flex-grow focus:outline-none bg-[#2F3133]"
+          className="flex-grow focus:outline-none bg-[#303134]"
           title="search"
           onChange={(e) => handleChange(e.target.value)}
         />
         {setInput && suggestions.length && (
-          <div className=" h-[416.4px] w-[584px] absolute bg-[#2F3133] pb-2 text-black left-0 top-11 rounded-b-3xl  ">
-            <ul className=" w-full   ">
+          <div className=" h-[416.4px] w-[584px] absolute bg-[#303134] pb-2 left-0 top-11 rounded-b-3xl  ">
+            <ul
+              className=" w-full h-[300px] overflow-y-auto    "
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
               {suggestions.map((el) => (
                 <div
                   key={el}
-                  className="flex  pl-[14px] pr-[20px] items-center  group hover:bg-[#7e7d7d]"
+                  className="flex  pl-[14px] pr-[20px] items-center  group hover:bg-[#3C4043]"
                 >
                   <FaRegClock className="text-white mr-[13px] " size={15} />
                   <li className="w-[470.4px] h-[30.4px] m-1  text-white flex  items-center  ">
@@ -182,20 +185,36 @@ export const HomeSearch = () => {
         />
       </div>
 
-      <div className="flex flex-col space-y-2 justify-center  mt-8 mb-4  sm:flex-row ">
+      <div className="flex flex-col space-y-2 justify-center w-[533.39px] text-[#BFBFBF]  mt-8 mb-4  sm:flex-row text-[13px]  items-center  ">
         Google offered in:
-        <div className="text-[#4589e2] flex gap-4">
-          <a href="#lang" className="ml-1">
+        <div className="text-[#99C3FF] flex   ">
+          <a href="#lang" className="px-[3px]">
             हिन्दी
           </a>
-          <a href="#lang">বাংলা</a>
-          <a href="#lang">తెలుగు</a>
-          <a href="#lang">मराठी</a>
-          <a href="#lang">தமிழ்</a>
-          <a href="#lang">ગુજરાતી</a>
-          <a href="#lang">ಕನ್ನಡ</a>
-          <a href="#lang">മലയാളം</a>
-          <a href="#lang">ਪੰਜਾਬੀ</a>
+          <a className="px-[3px]" href="#lang">
+            বাংলা
+          </a>
+          <a className="px-[3px]" href="#lang">
+            తెలుగు
+          </a>
+          <a className="px-[3px]" href="#lang">
+            मराठी
+          </a>
+          <a className="px-[3px]" href="#lang">
+            தமிழ்
+          </a>
+          <a className="px-[3px]" href="#lang">
+            ગુજરાતી
+          </a>
+          <a className="px-[3px]" href="#lang">
+            ಕನ್ನಡ
+          </a>
+          <a className="px-[3px]" href="#lang">
+            മലയാളം
+          </a>
+          <a className="px-[3px]" href="#lang">
+            ਪੰਜਾਬੀ
+          </a>
         </div>
       </div>
     </>

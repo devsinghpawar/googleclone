@@ -104,7 +104,7 @@ const func = () => {
   return new Promise((resolve) =>
     setTimeout(resolve, 300, {
       ...asas,
-      suggestions: arr,
+      suggestions: arr.splice(3, 5),
     })
   );
 };

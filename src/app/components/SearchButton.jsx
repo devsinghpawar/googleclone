@@ -3,8 +3,8 @@ export function SearchButton({ handleSubmit, suggestions }) {
     <button
       className={` rounded-md text-sm text-white hover:ring-gray-200 focus:outline-none active:ring-gray-300 hover:shadow-md w-36 h-10 transition-shado ${
         suggestions
-          ? "bg-[#3B3F40] hover:bg-[#2F3133] hover:border-neutral-100 hover:border-2 "
-          : "bg-[#2F3133]"
+          ? "bg-[#3C4043]  hover:border-neutral-500 hover:border"
+          : "bg-[#303134] hover:border-neutral-500 hover:border"
       }`}
       onClick={handleSubmit}
     >
@@ -21,7 +21,9 @@ export function FeelingLucky({
     <button
       disabled={randomSearchLoading}
       className={`  rounded-md  text-sm text-white hover:ring-gray-200 focus:outline-none active:ring-gray-300 hover:shadow-md w-36 h-10 transition-shadow disabled:opacity-80 disabled:shadow-sm ${
-        suggestions ? "bg-[#3B3F40]" : "bg-[#2F3133]"
+        suggestions
+          ? "bg-[#3C4043]  hover:border-neutral-500 hover:border"
+          : "bg-[#303134] hover:bg-[#2F3133] hover:border-neutral-500 hover:border"
       } `}
       onClick={randomSearch}
     >
