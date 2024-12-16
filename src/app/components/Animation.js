@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from "react";
 import "./index.css"; // Tailwind CSS is included here
 

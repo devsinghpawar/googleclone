@@ -24,7 +24,6 @@ export default function Home() {
 
       <div className=" text-white text-center flex-grow place-items-center flex flex-col items-center p-[20px]  ">
         <HomeSearch />
-        {/* <GoogleLensSearch /> */}
       </div>
 
       <footer>

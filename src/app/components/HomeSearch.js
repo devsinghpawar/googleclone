@@ -7,7 +7,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
 import { func } from "./getSearch";
 import GoogleLensSearch from "./SearchImage";
-import { SearchButton, FeelingLucky } from "./SearchButton";
+import { SearchButton, FeelingLucky } from "./Button";
 
 export const HomeSearch = () => {
   const [input, setInput] = useState("");
@@ -54,8 +54,6 @@ export const HomeSearch = () => {
 
   const handleChange = async (value) => {
     setInput(value);
-
-    console.log(as?.suggestions);
   };
 
   if (lens) return <GoogleLensSearch onButtonClick={handleClick} />;

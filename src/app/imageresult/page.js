@@ -2,9 +2,9 @@
 import Image from "next/image";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { TbGridDots } from "react-icons/tb";
-import CustomCropper from "../components/Test";
-import { asdsa, imgcont } from "../components/ImgData";
-import data from "../data/products.json";
+import CustomCropper from "../components/Cropper";
+import { imgcont } from "../components/ImgData";
+
 import { Datafunc } from "../data/datafile";
 
 const ImageResult = () => {
@@ -99,14 +99,6 @@ const ImageResult = () => {
           </div>
 
           <div className="w-[80%] h-[70%] p-4  lg:absolute top-32  md:w-[50%] sm:w-[50%] ">
-            {/* <div>
-              <Image
-                src="https://images.unsplash.com/photo-1541516160071-4bb0c5af65ba?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBob3RvZ3JhcGh5fGVufDB8fDB8fHww"
-                alt="//"
-                width={100}
-                height={100}
-              />
-            </div> */}
             <CustomCropper />
           </div>
 
