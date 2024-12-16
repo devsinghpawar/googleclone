@@ -3,9 +3,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaRegClock } from "react-icons/fa6";
+// import { FaRegClock } from "react-icons/fa6";
 import Link from "next/link";
-import { func } from "../components/getSearch";
+import { func } from "./getSearch";
 import GoogleLensSearch from "./SearchImage";
 import { SearchButton, FeelingLucky } from "./SearchButton";
 
@@ -33,30 +33,19 @@ export const HomeSearch = () => {
   }, [input]);
 
   useEffect(() => {
-    const indoer = async () => {
+    const suggData = async () => {
       const as = await func();
       setSuggestions(as.suggestions.map((el) => el.value));
     };
     if (!input) return setSuggestions([]);
 
     if (debouncedValue) {
-      indoer();
+      suggData();
     }
   }, [debouncedValue]);
 
   const randomSearch = async (e) => {
-    try {
-      setRandomSearchLoading(true);
-      const response = await fetch("https://random-word-api.herokuapp.com/word")
-        .then((res) => res.json())
-        .then((data) => data[0]);
-      if (!response) return setRandomSearchLoading(false);
-      router.push(`/search/web?searchTerm=${response}`);
-      setRandomSearchLoading(false);
-    } catch (error) {
-      setRandomSearchLoading(false);
-      console.log(error);
-    }
+    console.log(e);
   };
 
   const handleClick = () => {
@@ -66,7 +55,7 @@ export const HomeSearch = () => {
   const handleChange = async (value) => {
     setInput(value);
 
-    console.log(as.suggestions);
+    console.log(as?.suggestions);
   };
 
   if (lens) return <GoogleLensSearch onButtonClick={handleClick} />;
@@ -75,40 +64,51 @@ export const HomeSearch = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex w-[582px] h-[46px] mt-1 mx-auto max-w-[90%] border border-[#636468] px-5 py-3 rounded-full hover:shadow-md focus-within:shadow-md transition-shadow sm:max-w-xl lg:max-w-2xl relative bg-[#2F3133]"
+        className={`flex w-[582px] h-[46px] mt-1 mx-auto max-w-[90%]  ${
+          setInput && suggestions.length > 0
+            ? "rounded-tr-[24px] rounded-tl-[24px] bg-[#303134]"
+            : "rounded-[24px] bg-[#4D5156]"
+        }  border-[#636468] px-5 py-3  hover:shadow-md focus-within:shadow-md transition-shadow sm:max-w-xl lg:max-w-2xl relative `}
       >
         <AiOutlineSearch className="text-xl text-gray-500 mr-3" />
         <input
           ref={cropperRef}
           type="text"
-          className="flex-grow focus:outline-none bg-[#303134]"
+          className={`flex-grow focus:outline-none  ${
+            setInput && suggestions.length > 0
+              ? " bg-[#303134]"
+              : " bg-[#4D5156]"
+          } `}
           title="search"
           onChange={(e) => handleChange(e.target.value)}
         />
-        {setInput && suggestions.length && (
-          <div className=" h-[416.4px] w-[584px] absolute bg-[#303134] pb-2 left-0 top-11 rounded-b-3xl  ">
-            <ul
-              className=" w-full h-[300px] overflow-y-auto    "
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            >
-              {suggestions.map((el) => (
-                <div
-                  key={el}
-                  className="flex  pl-[14px] pr-[20px] items-center  group hover:bg-[#3C4043]"
-                >
-                  <FaRegClock className="text-white mr-[13px] " size={15} />
-                  <li className="w-[470.4px] h-[30.4px] m-1  text-white flex  items-center  ">
-                    {el}
-                  </li>
+        {setInput && suggestions.length > 0 && (
+          <div className="max-h-[409.2px] h-auto w-full absolute bg-[#303134] pb-2 left-0 top-11 rounded-b-3xl   ">
+            <div className="overflow-y-hidden max-h-[300px] pb-[8px]">
+              <ul
+                className=" w-full   "
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                {suggestions.map((el) => (
+                  <div
+                    key={el}
+                    className="flex  pl-[14px] pr-[20px] items-center  group hover:bg-[#3C4043]"
+                  >
+                    <AiOutlineSearch className="text-xl text-gray-500 mr-3" />
 
-                  <button className="text-white hidden group-hover:block  cursor-pointer hover:underline  ">
-                    Delete
-                  </button>
-                </div>
-              ))}
-            </ul>
+                    <li className="w-[470.4px] h-[30.4px] m-1  text-white flex  items-center  ">
+                      {el}
+                    </li>
 
-            <div className="flex flex-col space-y-2 sm:space-y-0 justify-center sm:flex-row mt-8 sm:space-x-4 mb-4 ">
+                    <button className="text-white hidden group-hover:block  cursor-pointer hover:underline  ">
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </ul>
+            </div>
+
+            <div className="flex flex-row  sm:space-y-0 justify-center mt-8 sm:space-x-4 mb-4  items-center ">
               <SearchButton
                 handleSubmit={handleSubmit}
                 suggestions={suggestions}

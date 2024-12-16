@@ -2,11 +2,31 @@
 import Image from "next/image";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { TbGridDots } from "react-icons/tb";
-import CustomCropper from "../components/test";
+import CustomCropper from "../components/Test";
 import { asdsa } from "../components/ImgData";
+import data from "../data/products.json";
+import { Datafunc } from "../data/datafile";
 
 const ImageResult = () => {
   const items = [1, 2, 3, 4];
+
+  function shuffle(array) {
+    let currentIndex = array.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+  }
+
   return (
     <div className="overflow-x-none ">
       <div className="bg-white text-[#5F6368] font-semibold p-4 px-6 h-[64px] flex justify-between text-sm items-center overflow-x-none ">
@@ -89,29 +109,109 @@ const ImageResult = () => {
         </div>
 
         <div className="flex flex-col flex-wrap items-center bg-white box-border  h-full  w-[50%] text-black overflow-x-none overflow-y-auto md:w-[100%] sm:w-[100%] break-words m-2 mr-0 ">
-          {/* <div className="flex flex-col m-2 ">
-            {asdsa.map((el, i) => {
-              return (
-                <div
-                  className="flex flex-col bg-white rounded-2xl mb-2"
-                  key={i}
-                >
-                  <Image
-                    src={el.url}
-                    alt="sjdisjd"
-                    width={200}
-                    height={200}
-                    className=" rounded-2xl"
-                  />
-                  {el.arr.map((ex, x) => (
-                    <span key={x}>{ex}</span>
-                  ))}
-                </div>
-              );
-            })}
-          </div> */}
+          {items.map((le, gi) => (
+            <div className="flex flex-col m-2 " key={gi}>
+              {gi == 1 && (
+                <div className="w-[160.7px] mb-[8px] gap-1 flex flex-col text-[#202124] ">
+                  <div className=" text-[16px]  mt-[4px] font-semibold  ">
+                    Related search
+                  </div>
 
-          <div className="flex flex-col   ">
+                  <div className="p-[8px] flex bg-[#F6F8FA] rounded-md ">
+                    <span className="px-[4px] text-[14px] font-semibold  ">
+                      Tonal print loose fit casual shirt
+                    </span>
+                    <Image
+                      src={asdsa[1].url}
+                      width={44}
+                      height={20}
+                      alt="image"
+                      className="  rounded-md "
+                    />
+                  </div>
+                </div>
+              )}
+
+              {Datafunc().map((el, i) => {
+                return (
+                  <div
+                    className="flex flex-col bg-white rounded-2xl mb-2 w-[164.7px] relative "
+                    key={i}
+                  >
+                    <Image
+                      src={el.image}
+                      alt="sjdisjd"
+                      width={200}
+                      height={200}
+                      className=" rounded-2xl"
+                    />
+
+                    <div className="inline-flex  items-center  py-[4px] px-[2px] bg-[#FFFFFFE6]   rounded-full absolute top-4  left-4">
+                      <svg
+                        enable-background="new 0 0 24 24"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        class="my-[2px] ml-[6px] mr-[4px]"
+                      >
+                        <g>
+                          <rect fill="none" height="16" width="16"></rect>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M19,2h-5.87c-0.8,0-1.56,0.32-2.12,0.88l-8.13,8.13c-1.17,1.17-1.17,3.07,0,4.24l5.87,5.87C9.34,21.71,10.11,22,10.87,22 s1.54-0.29,2.12-0.88L21.12,13c0.56-0.56,0.88-1.33,0.88-2.12V5C22,3.34,20.66,2,19,2z M20,10.88c0,0.27-0.1,0.52-0.29,0.71 l-8.13,8.12C11.33,19.97,11.03,20,10.87,20s-0.45-0.04-0.71-0.29l-5.87-5.87C4.04,13.58,4,13.29,4,13.13s0.04-0.45,0.29-0.71 l8.13-8.13C12.61,4.1,12.87,4,13.13,4H19c0.55,0,1,0.45,1,1V10.88z"></path>
+                            <circle cx="16.5" cy="7.5" r="1.5"></circle>
+                          </g>
+                        </g>
+                      </svg>
+
+                      <span className="text-[14px] text-[#202124] mr-[8px] font-sans font-semibold ">
+                        {el.price}*
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col mt-[12px] mb-[8px] mx-[4px]  ">
+                      <div className="mb-[6px] h-[20px] ">
+                        <span className="mr-[8px]">L</span>
+                        <span className="text-[14px] text-[#5F6368]">
+                          {el.brand}
+                        </span>
+                      </div>
+                      <span className=" text-[14px] text-[#3C4043] ]">
+                        {" "}
+                        {el.name}
+                      </span>
+                      <span className="text-[12px] text-[#188038]  ">
+                        In stock
+                      </span>
+                      {/* {el.arr[3] && (
+                      <div className="mt-[6px] mx-[4px] flex items-center">
+                        <span className="text-[12px]  text-[#1873E8] pr-[6px] ">
+                          {" "}
+                          {el.arr[3]}
+                        </span>
+                        <Image width={10} height={10} alt="" src={el.url} />
+                        <svg
+                          focusable="false"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          class="text-[#1873E8] ml-[4px]"
+                          fill="currentColor"
+                        >
+                          <path d="M7.59 18.59L9 20l8-8-8-8-1.41 1.41L14.17 12"></path>
+                        </svg>
+                      </div>
+                    )} */}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+
+          {/* <div className="flex flex-col   ">
             {asdsa.map((el, i) => {
               return (
                 <div
@@ -156,7 +256,6 @@ const ImageResult = () => {
                     <div className="mb-[6px] h-[20px] ">
                       <span className="mr-[8px]">L</span>
                       <span className="text-[14px] text-[#5F6368]">
-                        {" "}
                         {el.arr[0]}
                       </span>
                     </div>
@@ -165,7 +264,6 @@ const ImageResult = () => {
                       {el.arr[1]}
                     </span>
                     <span className="text-[12px] text-[#188038]  ">
-                      {" "}
                       {el.arr[2]}
                     </span>
                     {el.arr[3] && (
@@ -191,9 +289,9 @@ const ImageResult = () => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
 
-          <div className="flex flex-col ">
+          {/* <div className="flex flex-col ">
             <div className="w-[160.7px] mb-[8px] gap-1 flex flex-col text-[#202124] ">
               <div className=" text-[16px]  mt-[4px] font-semibold  ">
                 Related search
@@ -292,9 +390,9 @@ const ImageResult = () => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
 
-          <div className="flex flex-col ">
+          {/* <div className="flex flex-col ">
             {asdsa.map((el, i) => {
               return (
                 <div
@@ -454,7 +552,7 @@ const ImageResult = () => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
