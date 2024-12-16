@@ -7,6 +7,12 @@
   --foreground: #fff;
 }
 
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #202124;
@@ -14,68 +20,101 @@
   }
 }
 
+.cropper-crop-box {
+  /* position: relative; */
+  /* border: 2px solid rgba(255, 255, 255, 0.6); */
+
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 9px;
+}
+.cropper-center {
+  display: none !important;
+}
+
 .cropper-line {
-  display: none !important; /* Removes the grid lines */
+  display: none !important;
 }
-
-/* Hide dashed borders around the crop box */
-.cropper-dashed {
-  display: none !important; /* Removes dashed lines */
-}
-
-/* Optional: Remove handles (circular draggable points) */
-.cropper-point {
-  display: none !important; /* Hides drag points */
-}
-/* Rounded corners and white border for crop box */
-
-.cropper-face.cropper-move {
+/* Top-left corner */
+.cropper-point.point-ne {
+  position: absolute !important;
+  width: 20px !important; /* Handle size */
+  height: 20px !important;
+  opacity: 1;
+  border-top-right-radius: 9px;
+  border: 4px solid white !important; /* White border for pixel-perfect lines */
+  box-sizing: border-box !important;
+  top: -4px !important;
   background: none;
+  right: -4px !important;
+  border-left: none !important;
+  border-bottom: none !important;
+}
+
+/* Top-right corner */
+.cropper-point.point-nw {
+  position: absolute !important;
+  width: 20px !important; /* Handle size */
+  height: 20px !important;
+  opacity: 1;
+
+  box-sizing: border-box !important;
+  border: 4px solid white !important; /* White border for pixel-perfect lines */
+  border-top-left-radius: 9px !important;
+  top: -4px !important;
+  left: -4px !important;
+  background: none;
+  border-right: none !important;
+  border-bottom: none !important;
+}
+
+/* Bottom-left corner */
+.cropper-point.point-se {
+  position: absolute !important;
+  width: 20px !important; /* Handle size */
+  height: 20px !important;
+  background: none;
+  border: 4px solid white !important; /* White border for pixel-perfect lines */
+  border-bottom-right-radius: 9px !important;
+  bottom: -4px !important;
+  right: -4px !important;
+  box-sizing: border-box !important;
+  opacity: 1 !important;
+  border-left: none !important;
+  border-top: none !important;
+}
+.cropper-point.point-se::before {
+  display: none !important;
+}
+/* Bottom-right corner */
+.cropper-point.point-sw {
+  position: absolute !important;
+  width: 20px !important; /* Handle size */
+  height: 20px !important;
+  box-sizing: border-box !important;
+  border: 4px solid white !important; /* White border for pixel-perfect lines */
+  border-bottom-left-radius: 9px !important;
+  bottom: -4px !important;
+  left: -4px !important;
+  opacity: 1 !important;
+  background: none;
+  border-right: none !important;
+  border-top: none !important;
+}
+
+.cropper-point.point-n,
+.cropper-point.point-s,
+.cropper-point.point-e,
+.cropper-point.point-w,
+.line-s,
+.line-n,
+.line-e,
+.line-w {
+  display: none !important;
 }
 .cropper-view-box,
-.cropper-face {
-  /* background: none !important; */
-  border-radius: 0px; /* Rounded corners */
-  border: 3px solid white; /* White border */
-  --b: 5px; /* thickness of the border */
-  --c: white; /* color of the border */
-  --w: 20px; /* width of border */
-  --_g: #0000 90deg, var(--c) 0;
-  --_p: var(--w) var(--w) border-box no-repeat;
-
+.cropper-crop-box,
+.cropper-face,
+.cropper-crop-box {
   outline: none !important;
-
-  border: var(--b) solid #00000000; /* space for the border */
-
-  background: conic-gradient(
-        from 90deg at top var(--b) left var(--b),
-        var(--_g)
-      )
-      0 0 / var(--_p),
-    conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 100% 0 /
-      var(--_p),
-    conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100% /
-      var(--_p),
-    conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g))
-      100% 100% / var(--_p);
-}
-
-/* Remove cropping grid lines */
-.cropper-line {
-  display: none;
-}
-
-/* Customize cropping handles (optional) */
-.cropper-point {
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 50%; /* Circular handles */
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  border: none !important;
 }

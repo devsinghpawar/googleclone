@@ -8,6 +8,7 @@ import Link from "next/link";
 import { func } from "./getSearch";
 import GoogleLensSearch from "./SearchImage";
 import { SearchButton, FeelingLucky } from "./Button";
+import { getAutocomplete } from "@/api/serpapi";
 
 export const HomeSearch = () => {
   const [input, setInput] = useState("");
@@ -28,22 +29,29 @@ export const HomeSearch = () => {
     const timer = setTimeout(() => {
       setDebouncedValue(input);
     }, 200);
-    if (!input) return setSuggestions([]);
+    // if (!input) return setSuggestions([]);
     return () => clearTimeout(timer);
   }, [input]);
 
   useEffect(() => {
     const suggData = async () => {
       const as = await func();
-      setSuggestions(as.suggestions.map((el) => el.value));
+      // setSuggestions(as.suggestions.map((el) => el.value));
     };
-    if (!input) return setSuggestions([]);
+    // if (!input) return setSuggestions([]);
 
     if (debouncedValue) {
       suggData();
     }
   }, [debouncedValue]);
 
+  useEffect(() => {
+    const asd = async () => {
+      const as = await getAutocomplete();
+      setSuggestions(as.suggestions.map((el) => el.value));
+    };
+    asd();
+  }, []);
   const randomSearch = async (e) => {
     console.log(e);
   };

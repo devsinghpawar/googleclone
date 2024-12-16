@@ -6,8 +6,18 @@ import CustomCropper from "../components/Cropper";
 import { imgcont } from "../components/ImgData";
 
 import { Datafunc } from "../data/datafile";
+import { useEffect, useState } from "react";
 
 const ImageResult = () => {
+  const [imageURL, setImageURL] = useState(null);
+
+  useEffect(() => {
+    const storedURL = sessionStorage.getItem("uploadedImageURL");
+    if (storedURL) {
+      setImageURL(storedURL);
+    }
+  }, []);
+
   const items = [1, 2, 3, 4];
 
   const arr = [[], [], [], []];
@@ -23,23 +33,6 @@ const ImageResult = () => {
     console.log(arr);
   };
   func();
-
-  function shuffle(array) {
-    let currentIndex = array.length;
-
-    // While there remain elements to shuffle...
-    while (currentIndex != 0) {
-      // Pick a remaining element...
-      let randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-  }
 
   return (
     <div className="overflow-x-none  ">
@@ -99,7 +92,7 @@ const ImageResult = () => {
           </div>
 
           <div className="w-[80%] h-[70%] p-4  lg:absolute top-32  md:w-[50%] sm:w-[50%] ">
-            <CustomCropper />
+            <CustomCropper imageURL={imageURL} />
           </div>
 
           <div className="w-[232.1px] h-[32px] border-none   rounded-3xl bg-[#383D3D]  flex items-center text-[14px] text-white lg:absolute   bottom-12 ">
