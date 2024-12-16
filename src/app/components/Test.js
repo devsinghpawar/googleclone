@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 // import "./CustomCropper.css"; // Add custom styles here
