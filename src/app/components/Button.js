@@ -1,7 +1,7 @@
 export function SearchButton({ handleSubmit, suggestions }) {
   return (
     <button
-      className={` rounded-md text-sm text-white hover:ring-gray-200 focus:outline-none active:ring-gray-300 hover:shadow-md w-36 h-10 transition-shado ${
+      className={` rounded-sm text-sm text-[#E8E8E8] hover:ring-gray-200 focus:outline-none active:ring-gray-300 hover:shadow-md px-4 h-9 mx-[5px] w-[127px] transition-shado ${
         suggestions
           ? "bg-[#3C4043]  mr-1 hover:border-neutral-500 hover:border"
           : "bg-[#303134] hover:border-neutral-500 hover:border"
@@ -20,9 +20,9 @@ export function FeelingLucky({
   return (
     <button
       disabled={randomSearchLoading}
-      className={`  rounded-md  text-sm text-white hover:ring-gray-200 focus:outline-none active:ring-gray-300 hover:shadow-md w-36 h-10 transition-shadow disabled:opacity-80 disabled:shadow-sm  ${
+      className={`rounded-sm text-sm text-[#E8E8E8] hover:ring-gray-200 focus:outline-none active:ring-gray-300 hover:shadow-md px-4 h-9 mx-[5px] transition-shado w-[142.1px]  ${
         suggestions
-          ? "bg-[#3C4043]  ml-1  hover:border-neutral-500 hover:border"
+          ? "bg-[#3C4043]  hover:border-neutral-500 hover:border"
           : "bg-[#303134] hover:bg-[#2F3133] hover:border-neutral-500 hover:border"
       } `}
       onClick={randomSearch}

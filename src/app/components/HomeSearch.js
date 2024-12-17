@@ -17,8 +17,8 @@ export const HomeSearch = () => {
   const [lens, setLens] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [debouncedValue, setDebouncedValue] = useState("");
-  const [popUp, setPopUp] = useState(false);
-  const cropperRef = useRef(null);
+  const inputRef = useRef(null);
+  const dropdownRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,27 +35,15 @@ export const HomeSearch = () => {
 
   useEffect(() => {
     const suggData = async () => {
-      // const as = await func();
-      // setSuggestions(as.suggestions.map((el) => el.value));
-      const as = await getAutocomplete(input);
-      console.log(as, "PRINCE");
-      setSuggestions(as.suggestions.map((el) => el.value));
+      const autoComplete = await getAutocomplete(input);
+      setSuggestions(autoComplete.suggestions.map((el) => el.value));
     };
-    // if (!input) return setSuggestions([]);
 
     if (debouncedValue) {
       suggData();
     }
   }, [debouncedValue]);
 
-  useEffect(() => {
-    const asd = async () => {
-      // const as = await getAutocomplete();
-      // console.log(as, "PRINCE");
-      // setSuggestions(as.suggestions.map((el) => el.value));
-    };
-    asd();
-  }, []);
   const randomSearch = async (e) => {
     console.log(e);
   };
@@ -64,8 +52,26 @@ export const HomeSearch = () => {
     setLens(!lens);
   };
 
-  const handleChange = async (value) => {
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        inputRef.current &&
+        !inputRef.current.contains(e.target)
+      ) {
+        setSuggestions([]);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
+  const handleChange = (value) => {
     setInput(value);
+    if (value.trim() === "") {
+      setSuggestions([]);
+    }
   };
 
   if (lens) return <GoogleLensSearch onButtonClick={handleClick} />;
@@ -74,15 +80,15 @@ export const HomeSearch = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className={`flex w-[582px] h-[46px] mt-1 mx-auto max-w-[90%]  ${
+        className={`flex w-[584px] h-[46px] mt-1 mx-auto max-w-[90%]  ${
           setInput && suggestions.length > 0
             ? "rounded-tr-[24px] rounded-tl-[24px] bg-[#303134]"
             : "rounded-[24px] bg-[#4D5156]"
         }  border-[#636468] px-5 py-3  hover:shadow-md focus-within:shadow-md transition-shadow sm:max-w-xl lg:max-w-2xl relative `}
       >
-        <AiOutlineSearch className="text-xl text-gray-500 mr-3" />
+        <AiOutlineSearch className="text-x text-[#9AA0A6] mr-3  " size={20} />
         <input
-          ref={cropperRef}
+          ref={inputRef}
           type="text"
           className={`flex-grow focus:outline-none  ${
             setInput && suggestions.length > 0
@@ -92,33 +98,33 @@ export const HomeSearch = () => {
           title="search"
           onChange={(e) => handleChange(e.target.value)}
         />
-        {setInput && suggestions.length > 0 && (
-          <div className="max-h-[409.2px] h-auto w-full absolute bg-[#303134] pb-2 left-0 top-11 rounded-b-3xl   ">
-            <div className="overflow-y-hidden max-h-[300px] pb-[8px]">
+        {input && suggestions.length > 0 && (
+          <div
+            ref={dropdownRef}
+            className="max-h-[409.2px] h-auto w-full absolute bg-[#303134] pb-2 left-0 top-11 rounded-b-3xl    "
+          >
+            <div className="  border border-[#666c72]  mx-4"></div>
+            <div className="overflow-y-hidden max-h-[300px] pb-[8px] ">
               <ul
-                className=" w-full   "
+                className="     "
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
                 {suggestions.map((el) => (
                   <div
                     key={el}
-                    className="flex  pl-[14px] pr-[20px] items-center  group hover:bg-[#3C4043]"
+                    className="flex  pl-[14px] pr-[20px] items-center  group hover:bg-[#3C4043] "
                   >
                     <AiOutlineSearch className="text-xl text-gray-500 mr-3" />
 
                     <li className="w-[470.4px] h-[30.4px] m-1  text-white flex  items-center  ">
                       {el}
                     </li>
-
-                    <button className="text-white hidden group-hover:block  cursor-pointer hover:underline  ">
-                      Delete
-                    </button>
                   </div>
                 ))}
               </ul>
             </div>
 
-            <div className="flex flex-row  sm:space-y-0 justify-center mt-8 sm:space-x-4 mb-4  items-center ">
+            <div className="flex flex-row  sm:space-y-0 justify-center mt-8 sm:space-x-4 items-center mb-4 ">
               <SearchButton
                 handleSubmit={handleSubmit}
                 suggestions={suggestions}
@@ -186,7 +192,7 @@ export const HomeSearch = () => {
           </svg>
         </div>
       </form>
-      <div className="flex flex-col space-y-2 sm:space-y-0 justify-center sm:flex-row mt-8 sm:space-x-4 mb-4 ">
+      <div className="flex flex-col  sm:space-y-0 justify-center sm:flex-row mt-7  ">
         <SearchButton handleSubmit={handleSubmit} />
 
         <FeelingLucky
@@ -195,34 +201,34 @@ export const HomeSearch = () => {
         />
       </div>
 
-      <div className="flex flex-col space-y-2 justify-center w-[533.39px] text-[#BFBFBF]  mt-8 mb-4  sm:flex-row text-[13px]  items-center  ">
+      <div className="flex flex-col space-y-2 justify-center text-[#BFBFBF]  mt-7 mb-4  sm:flex-row text-[13px]  items-center  ">
         Google offered in:
         <div className="text-[#99C3FF] flex   ">
-          <a href="#lang" className="px-[3px]">
+          <a href="#lang" className="px-[5px]">
             हिन्दी
           </a>
-          <a className="px-[3px]" href="#lang">
+          <a className="px-[5px]" href="#lang">
             বাংলা
           </a>
-          <a className="px-[3px]" href="#lang">
+          <a className="px-[5px]" href="#lang">
             తెలుగు
           </a>
-          <a className="px-[3px]" href="#lang">
+          <a className="px-[5px]" href="#lang">
             मराठी
           </a>
-          <a className="px-[3px]" href="#lang">
+          <a className="px-[5px]" href="#lang">
             தமிழ்
           </a>
-          <a className="px-[3px]" href="#lang">
+          <a className="px-[5px]" href="#lang">
             ગુજરાતી
           </a>
-          <a className="px-[3px]" href="#lang">
+          <a className="px-[5px]" href="#lang">
             ಕನ್ನಡ
           </a>
-          <a className="px-[3px]" href="#lang">
+          <a className="px-[5px]" href="#lang">
             മലയാളം
           </a>
-          <a className="px-[3px]" href="#lang">
+          <a className="px-[5px]" href="#lang">
             ਪੰਜਾਬੀ
           </a>
         </div>

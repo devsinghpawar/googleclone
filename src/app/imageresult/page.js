@@ -7,6 +7,7 @@ import { imgcont } from "../components/ImgData";
 
 import { Datafunc } from "../data/datafile";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const ImageResult = () => {
   const [imageURL, setImageURL] = useState(null);
@@ -17,8 +18,6 @@ const ImageResult = () => {
       setImageURL(storedURL);
     }
   }, []);
-
-  const items = [1, 2, 3, 4];
 
   const arr = [[], [], [], []];
   const func = () => {
@@ -37,7 +36,7 @@ const ImageResult = () => {
   return (
     <div className="overflow-x-none  ">
       <div className="bg-white text-[#5F6368] font-semibold p-4 px-6 h-[64px] flex justify-between text-sm items-center overflow-x-none ">
-        <div>
+        <Link href="/">
           <Image
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0iTD7C0BZFEnu5OYvcsp_0YaK9yCaca62zQ&s"
             alt="googlelogo"
@@ -45,7 +44,7 @@ const ImageResult = () => {
             height={24}
             className="bg-white"
           />
-        </div>
+        </Link>
 
         <div className="flex gap-8 items-center justify-center text-[13px] ">
           <div className="flex gap-2 items-center">
@@ -67,7 +66,7 @@ const ImageResult = () => {
       </div>
 
       <div class="flex flex-row items-stretch border-t border-t-gray-200 box-border  h-[673.6px] overflow-x-none lg:relative bg-white lg:flex-row md:flex-col sm:flex-col ">
-        <div className="flex flex-col items-center bg-[#1F2125] box-border h-full  w-[50%] md:w-[100%]  lg:relative ">
+        <div className="flex flex-col items-center bg-[#1F2125] box-border h-full  w-[50%] md:w-[100%]  lg:relative sm:w-[100%] ">
           <div
             className=" flex border w-[195.5px] h-[48px] justify-center items-center rounded-full border-[#3B3D41] lg:absolute top-[30px]
            "
