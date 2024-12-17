@@ -29,14 +29,17 @@ export const HomeSearch = () => {
     const timer = setTimeout(() => {
       setDebouncedValue(input);
     }, 200);
-    // if (!input) return setSuggestions([]);
+    if (!input) return setSuggestions([]);
     return () => clearTimeout(timer);
   }, [input]);
 
   useEffect(() => {
     const suggData = async () => {
-      const as = await func();
+      // const as = await func();
       // setSuggestions(as.suggestions.map((el) => el.value));
+      const as = await getAutocomplete(input);
+      console.log(as, "PRINCE");
+      setSuggestions(as.suggestions.map((el) => el.value));
     };
     // if (!input) return setSuggestions([]);
 
@@ -47,8 +50,9 @@ export const HomeSearch = () => {
 
   useEffect(() => {
     const asd = async () => {
-      const as = await getAutocomplete();
-      setSuggestions(as.suggestions.map((el) => el.value));
+      // const as = await getAutocomplete();
+      // console.log(as, "PRINCE");
+      // setSuggestions(as.suggestions.map((el) => el.value));
     };
     asd();
   }, []);
