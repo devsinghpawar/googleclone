@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import Cropper from "react-cropper";
-import "cropperjs/dist/cropper.css";
+// import Cropper from "react-cropper";
+// import "cropperjs/dist/cropper.css";
 // import "./CustomCropper.css"; // Add custom styles here
+import { CropperRef, Cropper } from "react-advanced-cropper";
+import "react-advanced-cropper/dist/style.css";
+import "react-advanced-cropper/dist/themes/corners.css";
 
 const CustomCropper = ({ imageURL }) => {
   const cropperRef = useRef(null);
@@ -22,19 +25,31 @@ const CustomCropper = ({ imageURL }) => {
       star.style.opacity = Math.random();
       container.appendChild(star);
     }
+
+    const timeout = setTimeout(() => {
+      stars.forEach((star) => container.removeChild(star)); // Remove each star
+    }, 300);
+
+    // Cleanup timeout on component unmount
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
   const onCrop = () => {
     const cropper = cropperRef.current?.cropper;
     console.log(croppeyr.getCroppedCanvas().toDataURL());
   };
+  const onChange = (cropper) => {
+    console.log(cropper.getCoordinates(), cropper.getCanvas());
+  };
 
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-lg overflow-hidden rounded-lg shadow-lg group"
+      className="relative w-full overflow-hidden rounded-lg shadow-lg group bg-[#1F2125]"
     >
-      <Cropper
+      {/* <Cropper
         src={imageURL}
         initialAspectRatio={1}
         dragMode="none"
@@ -50,10 +65,21 @@ const CustomCropper = ({ imageURL }) => {
         viewMode={1}
         background={false}
         autoCropArea={1}
-        className="transition-all duration-30000 group-hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.7)]"
+        className="  transition-all duration-30000 group-hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.7)]"
+      /> */}
+      <Cropper
+        src={imageURL}
+        onChange={onChange}
+        className="h-[60vh] bg-[#87aefb]"
       />
     </div>
   );
 };
 
 export default CustomCropper;
+
+// ${
+//   containerRef?.current?.width
+//     ? `w-[${containerRef?.current?.width} ]`
+//     : ""
+// } h-auto

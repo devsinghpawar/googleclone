@@ -34,7 +34,7 @@ const ImageResult = () => {
   func();
 
   return (
-    <div className="overflow-x-none  ">
+    <div className="overflow-x-none bg-white   ">
       <div className="bg-white text-[#5F6368] font-semibold p-4 px-6 h-[64px] flex justify-between text-sm items-center overflow-x-none ">
         <Link href="/">
           <Image
@@ -65,14 +65,14 @@ const ImageResult = () => {
         </div>
       </div>
 
-      <div class="flex flex-row items-stretch border-t border-t-gray-200 box-border  h-[673.6px] overflow-x-none lg:relative bg-white lg:flex-row md:flex-col sm:flex-col ">
-        <div className="flex flex-col items-center bg-[#1F2125] box-border h-full  w-[50%] md:w-[100%]  lg:relative sm:w-[100%] ">
+      <div className="flex flex-row items-stretch border-t border-t-gray-200 box-border  h-[90vh] overflow-x-none lg:relative bg-white lg:flex-row md:flex-col sm:flex-col  ">
+        <div className="flex flex-col items-center bg-[#1F2125] box-border h-full w-full  lg:relative overflow-y-hidden ">
           <div
-            className=" flex border w-[195.5px] h-[48px] justify-center items-center rounded-full border-[#3B3D41] lg:absolute top-[30px]
+            className=" flex border w-[195.5px] h-[48px] justify-center items-center rounded-full border-[#3B3D41] absolute top-[30px]  
            "
           >
             <div
-              className="flex items-center text-[#F8F9FA] font-medium tracking-[0.1px] leading-[24px] text-center h-[24px] w-[161.5px] 
+              className="flex items-center text-[#F8F9FA] font-medium tracking-[0.1px] leading-[24px] text-center
               "
             >
               <svg
@@ -90,11 +90,10 @@ const ImageResult = () => {
             </div>
           </div>
 
-          <div className="w-[80%] h-[70%] p-4  lg:absolute top-32  md:w-[50%] sm:w-[50%] ">
+          <div className="w-full h-[100vh] flex justify-center items-center bg-[#1F2125]">
             <CustomCropper imageURL={imageURL} />
           </div>
-
-          <div className="w-[232.1px] h-[32px] border-none   rounded-3xl bg-[#383D3D]  flex items-center text-[14px] text-white lg:absolute   bottom-12 ">
+          <div className="w-[232.1px] h-[32px] border-none   rounded-3xl bg-[#383D3D]  flex items-center text-[14px] text-white lg:absolute   bottom-12   ">
             <div className="text-[#383C3F] bg-white rounded-3xl h-[32px] w-[99px] flex text-center items-center justify-center">
               Search
             </div>
@@ -105,7 +104,7 @@ const ImageResult = () => {
           </div>
         </div>
 
-        <div className="flex flex-col flex-wrap items-center bg-white box-border  h-full  w-[50%] text-black overflow-x-none overflow-y-auto md:w-[100%] sm:w-[100%] break-words m-2 mr-0  sm:flex-col ">
+        <div className="flex flex-col flex-wrap items-center bg-white box-border  h-full  w-[50%] text-black overflow-x-none overflow-y-auto md:w-[100%] sm:w-[100%] break-words m-2 mr-0  sm:flex-col xl:max-h-[100%] ">
           {arr.map((le, gi) => (
             <div className="flex flex-col m-2 " key={gi}>
               {gi == 1 && (
@@ -145,7 +144,7 @@ const ImageResult = () => {
 
                     <div className="inline-flex  items-center  py-[4px] px-[2px] bg-[#FFFFFFE6]   rounded-full absolute top-4  left-4">
                       <svg
-                        enable-background="new 0 0 24 24"
+                        enableBackground="new 0 0 24 24"
                         focusable="false"
                         height="16"
                         viewBox="0 0 24 24"
