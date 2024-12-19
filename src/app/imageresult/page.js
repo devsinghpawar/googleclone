@@ -65,7 +65,7 @@ const ImageResult = () => {
         </div>
       </div>
 
-      <div className="flex flex-row items-stretch border-t border-t-gray-200 box-border  h-[90vh] overflow-x-none lg:relative bg-white lg:flex-row md:flex-col sm:flex-col  ">
+      <div className="flex flex-row gulu items-stretch border-t border-t-gray-200 box-border  h-[90vh] overflow-x-none lg:relative bg-white lg:flex-row md:flex-col sm:flex-col  ">
         <div className="flex flex-col items-center bg-[#1F2125] box-border h-full w-full  lg:relative overflow-y-hidden ">
           <div
             className=" flex border w-[195.5px] h-[48px] justify-center items-center rounded-full border-[#3B3D41] absolute top-[30px]  

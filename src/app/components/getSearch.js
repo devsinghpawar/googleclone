@@ -102,7 +102,7 @@ const func = () => {
   let arr = [...asas.suggestions, ...asas.suggestions];
   shuffle(arr);
   return new Promise((resolve) =>
-    setTimeout(resolve, 300, {
+    setTimeout(resolve, 100, {
       ...asas,
       suggestions: arr.splice(3, 5),
     })

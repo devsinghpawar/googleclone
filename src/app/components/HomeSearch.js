@@ -19,27 +19,38 @@ export const HomeSearch = () => {
   const [debouncedValue, setDebouncedValue] = useState("");
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
-
+  const [isFocused, setIsFocused] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
     router.push(`/search/web?searchTerm=${input}`);
   };
   useEffect(() => {
+    console.log("run");
     const timer = setTimeout(() => {
       setDebouncedValue(input);
     }, 200);
-    if (!input) return setSuggestions([]);
-    return () => clearTimeout(timer);
+    // if (!input) return setSuggestions([]);
+    if (input) return () => clearTimeout(timer);
   }, [input]);
 
   useEffect(() => {
+    console.log("HIHIh");
     const suggData = async () => {
-      const autoComplete = await getAutocomplete(input);
-      setSuggestions(autoComplete.suggestions.map((el) => el.value));
+      if (input) {
+        const autoComplete = await getAutocomplete(input);
+        const arr = [autoComplete.suggestions.map((el) => el.value)];
+        console.log(arr);
+        setSuggestions(...arr);
+      } else {
+        const autoComplete = await func(input);
+        const arr = [autoComplete.suggestions.map((el) => el.value)];
+        console.log(arr);
+        setSuggestions(...arr);
+      }
     };
 
-    if (debouncedValue) {
+    if (debouncedValue || !input) {
       suggData();
     }
   }, [debouncedValue]);
@@ -51,29 +62,17 @@ export const HomeSearch = () => {
   const handleClick = () => {
     setLens(!lens);
   };
-
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target) &&
-        inputRef.current &&
-        !inputRef.current.contains(e.target)
-      ) {
-        setSuggestions([]);
-      }
-    };
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
-
-  const handleChange = (value) => {
-    setInput(value);
-    if (value.trim() === "") {
-      setSuggestions([]);
+  const handleBlur = (e) => {
+    // Check if blur event is related to clicking outside the dropdown
+    if (!dropdownRef.current.contains(e.relatedTarget)) {
+      setIsFocused(false);
     }
   };
 
+  const handleChange = (value) => {
+    setInput(value);
+  };
+  const handleFocus = () => setIsFocused(true);
   if (lens) return <GoogleLensSearch onButtonClick={handleClick} />;
 
   return (
@@ -81,24 +80,24 @@ export const HomeSearch = () => {
       <form
         onSubmit={handleSubmit}
         className={`flex w-[584px] h-[46px] mt-1 mx-auto max-w-[90%]  ${
-          setInput && suggestions.length > 0
+          isFocused
             ? "rounded-tr-[24px] rounded-tl-[24px] bg-[#303134]"
             : "rounded-[24px] bg-[#4D5156]"
         }  border-[#636468] px-5 py-3  hover:shadow-md focus-within:shadow-md transition-shadow sm:max-w-xl lg:max-w-2xl relative `}
       >
         <AiOutlineSearch className="text-x text-[#9AA0A6] mr-3  " size={20} />
         <input
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           ref={inputRef}
           type="text"
           className={`flex-grow focus:outline-none  ${
-            setInput && suggestions.length > 0
-              ? " bg-[#303134]"
-              : " bg-[#4D5156]"
+            isFocused ? " bg-[#303134]" : " bg-[#4D5156]"
           } `}
           title="search"
           onChange={(e) => handleChange(e.target.value)}
         />
-        {input && suggestions.length > 0 && (
+        {isFocused && (
           <div
             ref={dropdownRef}
             className="max-h-[409.2px] h-auto w-full absolute bg-[#303134] pb-2 left-0 top-11 rounded-b-3xl    "

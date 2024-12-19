@@ -31,6 +31,9 @@ body {
 .cropper-center {
   display: none !important;
 }
+.gulu {
+  height: calc(100vh - 64px) !important;
+}
 .advanced-cropper-boundary__content,
 .advanced-cropper__background-wrapper,
 .advanced-cropper-boundary__stretcher,
