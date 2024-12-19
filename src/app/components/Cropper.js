@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-
+import TwinkleAnimation from "./Stars";
 const CustomCropper = ({ imageURL }) => {
   const cropperRef = useRef(null);
   const containerRef = useRef(null);
@@ -43,7 +43,7 @@ const CustomCropper = ({ imageURL }) => {
         background={false}
         style={{ height: "60vh", width: "100%", background: "#1F2125" }}
       />
-      {dots.map((dot) => (
+      {/* {dots.map((dot) => (
         <div
           key={dot.id}
           className="absolute w-2 h-2 bg-white rounded-full opacity-0 animate-twinkle"
@@ -53,7 +53,8 @@ const CustomCropper = ({ imageURL }) => {
             animationDelay: `${dot.delay}s`,
           }}
         />
-      ))}
+      ))} */}
+      <TwinkleAnimation />
     </div>
   );
 };

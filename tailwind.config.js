@@ -21,6 +21,7 @@ module.exports = {
       },
       animation: {
         twinkle: "twinkle 1s ease-in-out forwards", // Ensure it stops after fading out
+        fadeout: "opacity 0.5s ease-in-out;",
       },
     },
   },
