@@ -31,6 +31,16 @@ body {
 .cropper-center {
   display: none !important;
 }
+.advanced-cropper-boundary__content,
+.advanced-cropper__background-wrapper,
+.advanced-cropper-boundary__stretcher,
+.advanced-cropper-boundary,
+.advanced-cropper__boundary,
+.advanced-cropper,
+.advanced-cropper-wrapper {
+  background-color: #1f2125 !important;
+  background: #1f2125 !important;
+}
 
 .cropper-line {
   display: none !important;
@@ -51,6 +61,21 @@ body {
   border-bottom: none !important;
 }
 
+.advanced-cropper-simple-handler--east-north {
+  /* position: absolute !important; */
+  width: 20px !important; /* Handle size */
+  height: 20px !important;
+  opacity: 1;
+  border-top-right-radius: 9px;
+  border: 4px solid white !important; /* White border for pixel-perfect lines */
+  box-sizing: border-box !important;
+  /* top: -1px !important; */
+  background: none;
+  /* right: -1px !important; */
+  z-index: 99999;
+  border-left: none !important;
+  border-bottom: none !important;
+}
 /* Top-right corner */
 .cropper-point.point-nw {
   position: absolute !important;
@@ -118,4 +143,16 @@ body {
 .cropper-crop-box {
   outline: none !important;
   border: none !important;
+}
+.advanced-cropper-line-wrapper__content {
+  display: none;
+}
+
+.cropper-modal {
+  background: none !important;
+}
+
+.cropper-canvas {
+  background-color: #000;
+  opacity: 0.5;
 }

@@ -13,12 +13,14 @@ module.exports = {
       },
       keyframes: {
         twinkle: {
-          "0%, 100%": { opacity: "0.8", transform: "scale(1)" },
-          "50%": { opacity: "0.3", transform: "scale(1.2)" },
+          "0%": { opacity: 0 },
+          "50%": { opacity: 1 },
+          "70%": { opacity: 0.5 },
+          "90%": { opacity: 0 }, // Gradually fade out
         },
       },
       animation: {
-        twinkle: "twinkle 1s infinite ease-in-out",
+        twinkle: "twinkle 1s ease-in-out forwards", // Ensure it stops after fading out
       },
     },
   },

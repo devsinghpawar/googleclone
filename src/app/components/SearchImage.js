@@ -69,9 +69,10 @@ export default function GoogleLensSearch({ onButtonClick }) {
 
       <div
         {...getRootProps()}
+        onClick={(e) => e.stopPropagation()}
         className="flex flex-col items-center mt-5 w-[548.8px] h-[278.4px]   bg-[#1F2125] rounded-xl  border-[#2F3133] border-dashed border-2 relative"
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} onClick={(e) => e.stopPropagation()} />
 
         {isLoading ? (
           <div
